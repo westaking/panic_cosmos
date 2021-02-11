@@ -132,11 +132,16 @@ def run_monitor_network(network_nodes_tuple: Tuple[str, List[Node]]):
         full_nodes = [n for n in nodes if not n.is_validator]
 
         # Do not start if not enough nodes
-        if 0 in [len(validators), len(full_nodes)]:
+        #if 0 in [len(validators), len(full_nodes)]:
+        if 0 in [len(validators)]:
             log_and_print('!!! Could not start {}. It must have at least 1 '
                           'validator and 1 full node!!!'.format(monitor_name))
             return
 
+         # full_node is ni;
+        if 0 == len(full_nodes):
+            full_nodes = validators
+        
         # Initialise monitor
         network_monitor = NetworkMonitor(monitor_name, full_channel_set,
                                          logger_monitor_network,
